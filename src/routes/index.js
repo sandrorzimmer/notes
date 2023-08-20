@@ -1,5 +1,7 @@
 import users from './userRoutes.js';
 import login from './loginRoutes.js';
+import tag from './tagRoutes.js';
+import note from './noteRoutes.js';
 import checkAuthentication from '../middlewares/checkAuthentication.js';
 
 const routes = (app) => {
@@ -21,6 +23,8 @@ const routes = (app) => {
     app.use(
         users,
         login,
+        tag,
+        note,
     );
 };
 
