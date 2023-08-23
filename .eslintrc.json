@@ -36,6 +36,14 @@
         "func-names": "off",
         "prefer-const": "off",
         "no-underscore-dangle": "off",
+        "no-plusplus": "off",
+        "no-await-in-loop": "off",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
         "no-multiple-empty-lines": [
             "error",
             {

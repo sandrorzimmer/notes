@@ -1,6 +1,7 @@
 import BadRequest from '../errors/BadRequest.js';
 import NotFound from '../errors/NotFound.js';
 import Tag from '../models/Tag.js';
+import User from '../models/User.js';
 
 class TagController {
     static showAll = async (req, res, next) => {
@@ -21,7 +22,7 @@ class TagController {
             const result = await Tag.findById(id);
 
             if (!result) {
-                return next(new NotFound('ID not found'));
+                return next(new NotFound('ID not found.'));
             }
 
             return res.status(200).json(result);
@@ -32,12 +33,17 @@ class TagController {
 
     static addOne = async (req, res, next) => {
         try {
-            const { name } = req.body;
+            const { name, owner } = req.body;
 
             const existingName = await Tag.findOne({ name });
-
             if (existingName) {
                 return next(new BadRequest('Tag already exists.'));
+            }
+
+            const existingOwner = await User.findById(owner);
+
+            if (!existingOwner) {
+                return next(new BadRequest('Owner not found.'));
             }
 
             const newOne = new Tag(req.body);
@@ -51,11 +57,22 @@ class TagController {
 
     static updateOne = async (req, res, next) => {
         try {
-            const { name } = req.body;
+            const { name, owner } = req.body;
             const { id } = req.params;
+
+            if (name.trim().length <= 0) {
+                return next(new BadRequest('Tag name is required.'));
+            }
+
             const existingName = await Tag.find({ name, _id: { $ne: id } });
-            if (existingName) {
+            if (existingName.length > 0) {
                 return next(new BadRequest('Tag already exists.'));
+            }
+
+            const existingOwner = await User.findById(owner);
+
+            if (!existingOwner) {
+                return next(new BadRequest('Owner not found.'));
             }
 
             const updatedOne = req.body;
