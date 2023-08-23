@@ -38,7 +38,7 @@ class UserController {
 
             const existingUser = await User.findOne({ userName });
 
-            if (existingUser) {
+            if (existingUser.length > 0) {
                 return next(new BadRequest('This username is already used.'));
             }
 

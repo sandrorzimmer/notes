@@ -4,49 +4,88 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import app from '../app.js';
 import Tag from '../models/Tag.js';
+import User from '../models/User.js';
 
 dotenv.config({ path: './test.env' }); // path is relative to root directory of the project (same as package.json)
 chai.use(chaiHttp);
 const { expect } = chai;
 
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQxODI4ODZhYTY4YmQzNjQ3ODQzODMiLCJpYXQiOjE2OTI3NTA4NjYsImV4cCI6MTY5MzM1NTY2Nn0.bSekJunahfQAEZX6ssAQSOi3pmu0w-n4ewCzFR0CSlM';
-const owner = '64d182886aa68bd364784383';
+let authToken = '';
+let owner = '';
+let tagId = '';
+let tag = {
+    name: '',
+    owner,
+};
 
-// API endpoint: /tags
-describe('API endpoint: /tags', () => {
-    const tagNames = [
-        'home',
-        'work',
-        'business',
-        'miscelaneous',
-        'other',
-        'culinary',
-        'fruit',
-        'toys',
-        'electronics',
-        'shopping',
-        'health',
-        'phone',
-        'computers',
-        'job',
-        'programming',
-    ];
+const tagNames = [
+    'home',
+    'work',
+    'business',
+    'miscelaneous',
+    'other',
+    'culinary',
+    'fruit',
+    'toys',
+    'electronics',
+    'shopping',
+    'health',
+    'phone',
+    'computers',
+    'job',
+    'programming',
+];
 
-    let tag = {
-        name: '',
-        owner,
-    };
-
-    let tagId = '';
-
+describe('- Create new user and authenticate', () => {
     before(async () => {
-        await mongoose.connect(process.env.DB_CONNECTION_STRING, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(process.env.DB_CONNECTION_STRING);
+        await User.deleteOne({ username: 'newUser' });
         await Tag.deleteMany({});
     });
 
+    // Create new user
+    describe('Create new user', () => {
+        it('should create a new user', async () => {
+            const user = {
+                name: 'New User',
+                username: 'newUser',
+                password: '123456789Aa',
+            };
+            const res = await chai.request(app)
+                .post('/users')
+                .send(user);
+
+            expect(res).to.have.status(201);
+            expect(res.body).to.be.an('object');
+            expect(res.body).to.have.property('username').eql(user.username);
+
+            owner = res.body._id;
+            tag.owner = owner;
+        });
+    });
+
+    // Generate authToken
+    describe('Generate authToken', () => {
+        it('should create a new token', async () => {
+            const user = {
+                username: 'newUser',
+                password: '123456789Aa',
+            };
+            const res = await chai.request(app)
+                .post('/login')
+                .send(user);
+
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('object');
+            expect(res.body).to.have.property('token');
+
+            authToken = res.body.token;
+        });
+    });
+});
+
+// API endpoint: /tags
+describe('- API endpoint: /tags', () => {
     // Method: POST
     describe('POST', () => {
         // Add new tags

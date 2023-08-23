@@ -13,7 +13,7 @@ const routes = (app) => {
 
     // Apply the checkAuthentication middleware to all routes except login
     app.use((req, res, next) => {
-        if (req.path === '/login') {
+        if (req.path === '/login' || (req.path === '/users' && req.method === 'POST')) {
             next(); // Skip the middleware for the login endpoint
         } else {
             checkAuthentication(req, res, next); // Apply the middleware to other endpoints
