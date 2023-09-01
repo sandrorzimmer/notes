@@ -34,11 +34,11 @@ class UserController {
 
     static addOne = async (req, res, next) => {
         try {
-            const { userName } = req.body;
+            const { username } = req.body;
 
-            const existingUser = await User.findOne({ userName });
+            const existingUser = await User.findOne({ username });
 
-            if (existingUser.length > 0) {
+            if (existingUser !== null) {
                 return next(new BadRequest('This username is already used.'));
             }
 
@@ -55,16 +55,19 @@ class UserController {
         try {
             const { id } = req.params;
             const updatedOne = req.body;
-            const { userName } = updatedOne;
+            const { username } = updatedOne;
+
+            if (username.trim().length <= 0) {
+                return next(new BadRequest('Username is required.'));
+            }
 
             // Ensure that the username is unique, except for the current user being updated
-
-            if (userName) {
-                const existingUser = await User.findOne({
-                    userName,
+            if (username) {
+                const existingUser = await User.find({
+                    username,
                     _id: { $ne: id },
                 });
-                if (existingUser) {
+                if (existingUser.length > 0) {
                     return next(new BadRequest('This username is already used.'));
                 }
             }

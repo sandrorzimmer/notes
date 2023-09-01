@@ -36,10 +36,10 @@ const tagNames = [
     'programming',
 ];
 
-describe('- Create new user and authenticate', () => {
+describe('-->>> TAGS - Create new user and authenticate', () => {
     before(async () => {
         await mongoose.connect(process.env.DB_CONNECTION_STRING);
-        await User.deleteOne({ username: 'newUser' });
+        await User.deleteMany({});
         await Tag.deleteMany({});
     });
 
