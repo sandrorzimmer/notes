@@ -60,8 +60,10 @@ class TagController {
             const { name, owner } = req.body;
             const { id } = req.params;
 
-            if (name.trim().length <= 0) {
-                return next(new BadRequest('Tag name is required.'));
+            if (name) {
+                if (name.trim().length <= 0) {
+                    return next(new BadRequest('Tag name is required.'));
+                }
             }
 
             const existingName = await Tag.find({ name, _id: { $ne: id } });

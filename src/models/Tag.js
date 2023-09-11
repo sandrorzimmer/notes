@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import autopopulte from 'mongoose-autopopulate';
 
 const tagSchema = new mongoose.Schema(
     {
@@ -19,6 +20,7 @@ const tagSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: [true, 'Owner user is required.'],
+            autopopulate: { select: 'id username' },
         },
         createdAt: {
             type: Date,
@@ -36,6 +38,8 @@ tagSchema.pre('save', function (next) {
     next();
 });
 
-const Tag = mongoose.model('tag', tagSchema);
+tagSchema.plugin(autopopulte);
+
+const Tag = mongoose.model('Tag', tagSchema);
 
 export default Tag;

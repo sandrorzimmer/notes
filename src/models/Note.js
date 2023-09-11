@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import Tag from './Tag.js';
+import autopopulate from 'mongoose-autopopulate';
+// import Tag from './Tag.js';
 
 const noteSchema = new mongoose.Schema(
     {
@@ -19,11 +20,13 @@ const noteSchema = new mongoose.Schema(
         tags: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Tag',
+            autopopulate: { select: 'id name' },
         }],
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: [true, 'Owner user is required.'],
+            autopopulate: { select: 'id name' },
         },
         createdAt: {
             type: Date,
@@ -41,6 +44,8 @@ noteSchema.pre('save', function (next) {
     next();
 });
 
-const Note = mongoose.model('note', noteSchema);
+noteSchema.plugin(autopopulate);
+
+const Note = mongoose.model('Note', noteSchema);
 
 export default Note;
