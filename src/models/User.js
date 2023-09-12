@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema(
                 message: 'Password is not valid.',
             },
         },
+        role: {
+            type: String,
+            enum: ['user', 'admin'],
+            default: 'user',
+        },
         createdAt: {
             type: Date,
             default: new Date(),
