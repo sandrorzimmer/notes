@@ -33,19 +33,14 @@ class TagController {
 
     static addOne = async (req, res, next) => {
         try {
-            const { name, owner } = req.body;
+            const { name } = req.body;
 
             const existingName = await Tag.findOne({ name });
             if (existingName) {
                 return next(new BadRequest('Tag already exists.'));
             }
 
-            const existingOwner = await User.findById(owner);
-
-            if (!existingOwner) {
-                return next(new BadRequest('Owner not found.'));
-            }
-
+            req.body.owner = req.user.userId;
             const newOne = new Tag(req.body);
             const result = await newOne.save();
 
@@ -57,7 +52,7 @@ class TagController {
 
     static updateOne = async (req, res, next) => {
         try {
-            const { name, owner } = req.body;
+            const { name } = req.body;
             const { id } = req.params;
 
             if (name) {
@@ -71,12 +66,7 @@ class TagController {
                 return next(new BadRequest('Tag already exists.'));
             }
 
-            const existingOwner = await User.findById(owner);
-
-            if (!existingOwner) {
-                return next(new BadRequest('Owner not found.'));
-            }
-
+            req.body.owner = req.user.userId;
             const updatedOne = req.body;
 
             const result = await Tag.findByIdAndUpdate(id, updatedOne, { new: true });
