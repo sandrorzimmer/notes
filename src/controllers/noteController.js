@@ -58,7 +58,7 @@ class NoteController {
                 return next(new BadRequest('Invalid user ID for owner.'));
             }
 
-            const tagCount = await Tag.countDocuments({ _id: { $in: tags } });
+            const tagCount = await Tag.countDocuments({ _id: { $in: tags }, owner });
 
             if (tagCount !== tags.length) {
                 return next(new BadRequest('One or more tags are invalid.'));
@@ -84,7 +84,7 @@ class NoteController {
                 return next(new BadRequest('Invalid user ID for owner.'));
             }
 
-            const tagCount = await Tag.countDocuments({ _id: { $in: tags } });
+            const tagCount = await Tag.countDocuments({ _id: { $in: tags }, owner });
 
             if (tagCount !== tags.length) {
                 return next(new BadRequest('One or more tags are invalid.'));
