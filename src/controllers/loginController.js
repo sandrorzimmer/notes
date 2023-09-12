@@ -5,10 +5,10 @@ import User from '../models/User.js';
 class LoginController {
     static authenticate = async (req, res, next) => {
         try {
-            const { userName, password } = req.body;
+            const { username, password } = req.body;
 
             // Find the user by username
-            const user = await User.findOne({ userName });
+            const user = await User.findOne({ username });
 
             if (!user) {
                 return next(new BaseError('Invalid username or password.', 401));

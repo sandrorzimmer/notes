@@ -48,22 +48,20 @@ class NoteController {
 
     static addOne = async (req, res, next) => {
         try {
-            const {
-                owner, tags,
-            } = req.body;
+            const { tags } = req.body;
 
-            const existingOwner = await User.findById(owner);
+            if (tags) {
+                const tagCount = await Tag.countDocuments({
+                    _id: { $in: tags },
+                    owner: req.user.userId,
+                });
 
-            if (!existingOwner) {
-                return next(new BadRequest('Invalid user ID for owner.'));
+                if (tagCount !== tags.length) {
+                    return next(new BadRequest('One or more tags are invalid.'));
+                }
             }
 
-            const tagCount = await Tag.countDocuments({ _id: { $in: tags }, owner });
-
-            if (tagCount !== tags.length) {
-                return next(new BadRequest('One or more tags are invalid.'));
-            }
-
+            req.body.owner = req.user.userId;
             const newOne = new Note(req.body);
             const result = await newOne.save();
             return res.status(201).json(result);
@@ -74,20 +72,17 @@ class NoteController {
 
     static updateOne = async (req, res, next) => {
         try {
-            const {
-                owner, tags,
-            } = req.body;
+            const { tags } = req.body;
 
-            const existingOwner = await User.findById(owner);
+            if (tags) {
+                const tagCount = await Tag.countDocuments({
+                    _id: { $in: tags },
+                    owner: req.user.userId,
+                });
 
-            if (!existingOwner) {
-                return next(new BadRequest('Invalid user ID for owner.'));
-            }
-
-            const tagCount = await Tag.countDocuments({ _id: { $in: tags }, owner });
-
-            if (tagCount !== tags.length) {
-                return next(new BadRequest('One or more tags are invalid.'));
+                if (tagCount !== tags.length) {
+                    return next(new BadRequest('One or more tags are invalid.'));
+                }
             }
 
             const { id } = req.params;
