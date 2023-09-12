@@ -66,7 +66,6 @@ class TagController {
                 return next(new BadRequest('Tag already exists.'));
             }
 
-            req.body.owner = req.user.userId;
             const updatedOne = req.body;
 
             const result = await Tag.findByIdAndUpdate(id, updatedOne, { new: true });
