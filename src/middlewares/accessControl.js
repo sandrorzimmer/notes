@@ -4,8 +4,6 @@ import ac from '../permissions/accessControl.js';
 const checkPermissions = (action, resource) => (req, res, next) => {
     const { user } = req; // Assuming you have user information in the request object
 
-    console.log(user);
-
     if (!user) {
         return next(new BaseError('Unauthorized.', 403));
     }
