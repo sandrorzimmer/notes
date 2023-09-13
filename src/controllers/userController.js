@@ -57,12 +57,11 @@ class UserController {
             const updatedOne = req.body;
             const { username } = updatedOne;
 
-            if (username.trim().length <= 0) {
-                return next(new BadRequest('Username is required.'));
-            }
-
             // Ensure that the username is unique, except for the current user being updated
             if (username) {
+                if (username.trim().length <= 0) {
+                    return next(new BadRequest('Username is required.'));
+                }
                 const existingUser = await User.find({
                     username,
                     _id: { $ne: id },
@@ -81,7 +80,14 @@ class UserController {
                 updatedOne.password = await bcrypt.hash(updatedOne.password, salt);
             }
 
-            const result = await User.findByIdAndUpdate(id, updatedOne, { new: true });
+            const result = await User.findByIdAndUpdate(
+                id,
+                updatedOne,
+                {
+                    new: true,
+                    runValidators: true,
+                },
+            );
 
             if (!result) {
                 return next(new NotFound('ID not found.'));

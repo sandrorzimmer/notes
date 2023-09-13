@@ -22,7 +22,8 @@ class LoginController {
 
             // Generate a JWT token
             const userId = user._id.toString();
-            const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+            const { role } = user;
+            const token = jwt.sign({ userId, role }, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_EXPIRATION,
             });
 
