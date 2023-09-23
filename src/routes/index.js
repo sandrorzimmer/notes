@@ -21,7 +21,6 @@ const routes = (app) => {
             checkAuthentication(req, res, next); // Apply the middleware to other endpoints
             logger.info(`Received ${req.method} request to ${req.originalUrl} from user ${req.user.userId}`);
         }
-        // console.log(req.user);
     });
 
     app.use(

@@ -21,7 +21,11 @@ async function noteSearchHandling(params) {
 class NoteController {
     static showAll = async (req, res, next) => {
         try {
-            const searchAll = Note.find();
+            const { user } = req;
+            console.log(user);
+            const searchAll = Note.find({
+                owner: user.userId,
+            });
 
             req.result = searchAll;
 
@@ -34,7 +38,11 @@ class NoteController {
     static showOneById = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const result = await Note.findById(id);
+            const { user } = req;
+            const result = await Note.find({
+                owner: user.userId,
+                _id: id,
+            });
 
             if (!result) {
                 return next(new NotFound('ID not found.'));
