@@ -4,7 +4,7 @@ const ac = new AccessControl();
 
 ac.grant('user')
     .createOwn('note')
-    .readOwn('note')
+    .readAny('note')
     .updateOwn('note')
     .deleteOwn('note');
 
@@ -16,7 +16,7 @@ ac.grant('admin')
 
 ac.grant('user')
     .createOwn('tag')
-    .readOwn('tag')
+    .readAny('tag')
     .updateOwn('tag')
     .deleteOwn('tag');
 

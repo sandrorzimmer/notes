@@ -22,7 +22,6 @@ class NoteController {
     static showAll = async (req, res, next) => {
         try {
             const { user } = req;
-            console.log(user);
             const searchAll = Note.find({
                 owner: user.userId,
             });

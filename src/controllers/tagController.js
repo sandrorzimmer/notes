@@ -6,7 +6,10 @@ import User from '../models/User.js';
 class TagController {
     static showAll = async (req, res, next) => {
         try {
-            const searchAll = Tag.find();
+            const { user } = req;
+            const searchAll = Tag.find({
+                owner: user.userId,
+            });
 
             req.result = searchAll;
 
@@ -34,8 +37,14 @@ class TagController {
     static addOne = async (req, res, next) => {
         try {
             const { name } = req.body;
+            const { user } = req;
 
-            const existingName = await Tag.findOne({ name });
+            const existingName = await Tag.findOne({
+                name,
+                owner: user.userId,
+
+            });
+
             if (existingName) {
                 return next(new BadRequest('Tag already exists.'));
             }
@@ -54,6 +63,7 @@ class TagController {
         try {
             const { name } = req.body;
             const { id } = req.params;
+            const { user } = req;
 
             if (name) {
                 if (name.trim().length <= 0) {
@@ -61,7 +71,11 @@ class TagController {
                 }
             }
 
-            const existingName = await Tag.find({ name, _id: { $ne: id } });
+            const existingName = await Tag.find({
+                name,
+                _id: { $ne: id },
+                owner: user.userId,
+            });
             if (existingName.length > 0) {
                 return next(new BadRequest('Tag already exists.'));
             }

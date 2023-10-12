@@ -7,7 +7,7 @@ const tagSchema = new mongoose.Schema(
         name: {
             type: String,
             required: [true, 'Tag name is required.'],
-            unique: true,
+            unique: false,
             trim: true,
             validate: {
                 validator(name) {
