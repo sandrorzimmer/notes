@@ -7,6 +7,7 @@ const router = express.Router();
 
 router
     .get('/notes', checkPermissions('readAny', 'note'), NoteController.showAll, paginate)
+    .get('/notes/search', checkPermissions('readAny', 'note'), NoteController.showByFilter, paginate)
     .get('/notes/:id', checkPermissions('readOwn', 'note'), NoteController.showOneById, paginate)
     .post('/notes', checkPermissions('createOwn', 'note'), NoteController.addOne, paginate)
     .put('/notes/:id', checkPermissions('updateOwn', 'note'), NoteController.updateOne, paginate)

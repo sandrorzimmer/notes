@@ -5,15 +5,14 @@ import NotFound from '../errors/NotFound.js';
 import BadRequest from '../errors/BadRequest.js';
 
 async function noteSearchHandling(params) {
-    const {
-        title,
-        description,
-    } = params;
+    const { keyword } = params;
 
-    let search = {};
-
-    if (title) search.title = { $regex: title, $options: 'i' };
-    if (description) search.description = { $regex: description, $options: 'i' };
+    let search = {
+        $or: [
+            { title: { $regex: keyword, $options: 'i' } },
+            { description: { $regex: keyword, $options: 'i' } },
+        ],
+    };
 
     return search;
 }
@@ -95,11 +94,26 @@ class NoteController {
             const { id } = req.params;
             const updatedOne = req.body;
 
-            const result = await Note.findByIdAndUpdate(id, updatedOne, { new: true });
+            // const result = await Note.findByIdAndUpdate(id, updatedOne, { new: true });
 
-            if (!result) {
+            // if (!result) {
+            //     return next(new NotFound('ID not found.'));
+            // }
+
+            const note = await Note.findById(id);
+
+            if (!note) {
                 return next(new NotFound('ID not found.'));
             }
+
+            // Update the note fields with the new values
+            note.title = updatedOne.title;
+            note.description = updatedOne.description;
+            note.tags = updatedOne.tags; // Assuming you want to update tags as well
+            // Set the updatedAt field to the current date
+            note.updatedAt = new Date();
+
+            const result = await note.save();
 
             return res.status(200).json(result);
         } catch (error) {
@@ -128,6 +142,8 @@ class NoteController {
             const search = await noteSearchHandling(req.query);
 
             if (search !== null) {
+                const { user } = req;
+                search.owner = user.userId;
                 const result = Note.find(search);
 
                 req.result = result;

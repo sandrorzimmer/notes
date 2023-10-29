@@ -39,11 +39,6 @@ const noteSchema = new mongoose.Schema(
     },
 );
 
-noteSchema.pre('save', function (next) {
-    this.updatedAt = new Date();
-    next();
-});
-
 noteSchema.plugin(autopopulate);
 
 const Note = mongoose.model('Note', noteSchema);

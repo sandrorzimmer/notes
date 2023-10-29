@@ -2471,3 +2471,63 @@
 {"timestamp":"2023-10-12T18:05:34.774Z","level":"error","message":"E11000 duplicate key error collection: notes_api.tags index: name_1 dup key: { name: \"work\" }"}
 {"timestamp":"2023-10-12T18:10:47.153Z","level":"error","message":"Tag already exists."}
 {"timestamp":"2023-10-12T18:11:16.455Z","level":"error","message":"Tag already exists."}
+{"timestamp":"2023-10-13T19:33:45.547Z","level":"error","message":"Cast to ObjectId failed for value \"shopping\" (type string) at path \"_id\" for model \"Note\""}
+{"timestamp":"2023-10-13T19:54:15.519Z","level":"error","message":"Cast to ObjectId failed for value \"{\n  userId: '650de8c4fcd5e187ce612626',\n  role: 'user',\n  iat: 1697131834,\n  exp: 1697736634\n}\" (type Object) at path \"owner\" for model \"Note\""}
+{"timestamp":"2023-10-14T18:02:09.138Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:02:09.158Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:02:09.169Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:02:09.174Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:02:26.223Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:02:26.228Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:02:26.234Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:02:26.240Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T18:30:05.943Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:01:18.284Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:01:18.292Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:01:26.141Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:01:26.146Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:02:31.078Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:03:03.635Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:03:03.641Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:03:07.975Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:03:13.921Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:03:23.460Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-14T20:04:13.975Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:04:13.992Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:04:22.799Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:04:54.151Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:04:58.946Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:04:58.961Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:05:04.047Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:06:07.427Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:06:12.777Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:07:06.451Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:07:45.062Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:07:45.074Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:11:38.142Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:11:38.173Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:12:31.163Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:12:31.186Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-14T20:17:19.473Z","level":"error","message":"$regex has to be a string"}
+{"timestamp":"2023-10-28T21:20:26.675Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-28T21:22:56.212Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-28T21:22:56.217Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-28T21:24:59.705Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-28T21:24:59.817Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-28T21:26:03.614Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-28T21:26:03.830Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-28T21:30:31.708Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-28T21:38:17.432Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-28T21:38:17.558Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-29T17:49:30.844Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-29T17:52:49.217Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-29T17:52:49.222Z","level":"error","message":"Invalid token."}
+{"timestamp":"2023-10-29T18:25:30.409Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-29T18:25:30.414Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-29T19:00:23.921Z","level":"error","message":"Note validation failed: title: Title is required."}
+{"timestamp":"2023-10-29T19:01:00.808Z","level":"error","message":"Note validation failed: title: Title is required."}
+{"timestamp":"2023-10-29T19:43:49.899Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-29T19:43:50.132Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-29T19:43:54.578Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-29T19:49:48.212Z","level":"error","message":"No token provided."}
+{"timestamp":"2023-10-29T19:57:05.568Z","level":"error","message":"note is not defined"}

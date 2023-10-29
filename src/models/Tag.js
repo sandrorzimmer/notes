@@ -33,11 +33,6 @@ const tagSchema = new mongoose.Schema(
     },
 );
 
-tagSchema.pre('save', function (next) {
-    this.updatedAt = new Date();
-    next();
-});
-
 tagSchema.plugin(autopopulte);
 
 const Tag = mongoose.model('Tag', tagSchema);

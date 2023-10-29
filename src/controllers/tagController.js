@@ -82,11 +82,24 @@ class TagController {
 
             const updatedOne = req.body;
 
-            const result = await Tag.findByIdAndUpdate(id, updatedOne, { new: true });
+            const tag = await Tag.findById(id);
 
-            if (!result) {
+            if (!tag) {
                 return next(new NotFound('ID not found.'));
             }
+
+            // Update the tag fields with the new values
+            tag.name = updatedOne.name;
+            // Set the updatedAt field to the current date
+            tag.updatedAt = new Date();
+
+            const result = await tag.save();
+
+            // const result = await Tag.findByIdAndUpdate(id, updatedOne, { new: true });
+
+            // if (!result) {
+            //     return next(new NotFound('ID not found.'));
+            // }
 
             return res.status(200).json(result);
         } catch (error) {
