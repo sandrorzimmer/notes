@@ -19,7 +19,11 @@ const routes = (app) => {
             next(); // Skip the middleware for the login endpoint
         } else {
             checkAuthentication(req, res, next); // Apply the middleware to other endpoints
-            logger.info(`Received ${req.method} request to ${req.originalUrl} from user ${req.user.userId}`);
+            if (!req.user) {
+                logger.info(`Received ${req.method} request to ${req.originalUrl}`);
+            } else {
+                logger.info(`Received ${req.method} request to ${req.originalUrl} from user ${req.user.userId}`);
+            }
         }
     });
 
